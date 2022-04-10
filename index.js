@@ -1,7 +1,8 @@
 const gridContainer = document.querySelector(".grid-container");
 const body = document.querySelector("body");
+let drawing = true;
 
-function createGrid(squares = 50) {
+function createGrid(squares) {
   let squaresPerSide;
   if (squares > 100) {
     squaresPerSide = 16;
@@ -16,43 +17,58 @@ function createGrid(squares = 50) {
     gridContainer.appendChild(div);
   }
 }
-createGrid();
-
+const setGrid = document.querySelector("input");
+createGrid(setGrid.value);
+//set color function
+function setColor(e) {
+  const selectColor = document.querySelector(".colors");
+  console.log(selectColor.value);
+  let value = selectColor.value === "random" ? randomRGB() : selectColor.value;
+  e.target.style.cssText = `background-color: ${value}`;
+}
 //initial grid items
-const gridItems1 = document.querySelectorAll(".grid");
+const gridItems = document.querySelectorAll(".grid");
 const randomRGB = () => {
   const blue = Math.floor(Math.random() * 255) + 1;
   const red = Math.floor(Math.random() * 255) + 1;
   const green = Math.floor(Math.random() * 255) + 1;
   return `rgb(${red}, ${green}, ${blue})`;
 };
-gridItems1.forEach((gridItem) => {
-  gridItem.addEventListener("mouseover", () => {
-    gridItem.style.cssText = `background-color: ${randomRGB()}`;
-  });
-});
 
-//reset grid
-const resetGridButton = document.createElement("button");
-resetGridButton.classList.add("reset-btn");
-resetGridButton.textContent = "Reset Grid and Resize";
-body.prepend(resetGridButton);
-
-resetGridButton.addEventListener("click", (e) => {
-  const gridItemsOld = document.querySelectorAll(".grid");
-  gridItemsOld.forEach((gridItem) => gridItem.remove());
-  const squaresPerSide = prompt(
-    "Please specify the amount of squares you want per side"
-  );
-  if (typeof Number(squaresPerSide) === "number") {
-    createGrid(squaresPerSide);
-    const gridItemsNew = document.querySelectorAll(".grid");
-    gridItemsNew.forEach((gridItem) => {
-      gridItem.addEventListener("mouseover", () => {
-        gridItem.style.cssText = `background-color: ${randomRGB()}`;
-      });
+function enableDrawing(gridItems) {
+  if (drawing) {
+    gridItems.forEach((gridItem) => {
+      gridItem.addEventListener("mouseover", setColor);
     });
   } else {
-    alert("please provide a number");
+    gridItems.forEach((gridItem) => {
+      gridItem.removeEventListener("mouseover", setColor);
+    });
   }
+}
+enableDrawing(gridItems);
+gridContainer.addEventListener("click", () => {
+  console.log("hi");
+  const currentGridItems = document.querySelectorAll(".grid");
+  drawing = drawing === true ? false : true;
+  return enableDrawing(currentGridItems);
+});
+//reset grid
+const resetGridButton = document.createElement("button");
+
+//slider
+const slider = document.querySelector(".slider");
+
+const sliderValue = document.querySelector(".slider-value");
+sliderValue.textContent = slider.value;
+
+slider.addEventListener("input", (e) => {
+  const gridItemsOld = document.querySelectorAll(".grid");
+  gridItemsOld.forEach((gridItem) => {
+    gridItem.remove();
+  });
+
+  const value = e.target.value;
+  createGrid(value);
+  sliderValue.textContent = slider.value;
 });

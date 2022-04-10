@@ -9,6 +9,32 @@
   </head>
   <body>
     <div class="grid-container"></div>
+    <div id="slide">
+      <label for="range"
+        >Change Squares Per Side: <span class="slider-value"></span
+      ></label>
+
+      <input
+        type="range"
+        min="16"
+        max="100"
+        value="50"
+        class="slider"
+        id="range"
+      />
+    </div>
+    <div>
+      <label for="colors">Select Your Color:</label>
+      <select id="colors" class="colors">
+        <option value="random">Random</option>
+        <option value="purple">Purple</option>
+        <option value="red">Red</option>
+        <option value="black">Black</option>
+        <option value="yellow">Yellow</option>
+        <option value="blue">Blue</option>
+      </select>
+    </div>
+
     <script src="./index.js"></script>
   </body>
 </html>
