@@ -22,7 +22,6 @@ createGrid(setGrid.value);
 //set color function
 function setColor(e) {
   const selectColor = document.querySelector(".colors");
-  console.log(selectColor.value);
   let value = selectColor.value === "random" ? randomRGB() : selectColor.value;
   e.target.style.cssText = `background-color: ${value}`;
 }
@@ -46,13 +45,14 @@ function enableDrawing(gridItems) {
     });
   }
 }
-enableDrawing(gridItems);
-gridContainer.addEventListener("click", () => {
-  console.log("hi");
+function toggleDrawing() {
   const currentGridItems = document.querySelectorAll(".grid");
   drawing = drawing === true ? false : true;
   return enableDrawing(currentGridItems);
-});
+}
+enableDrawing(gridItems);
+
+gridContainer.addEventListener("click", toggleDrawing);
 //reset grid
 const resetGridButton = document.createElement("button");
 
@@ -71,4 +71,37 @@ slider.addEventListener("input", (e) => {
   const value = e.target.value;
   createGrid(value);
   sliderValue.textContent = slider.value;
+});
+
+const resetGridBtn = document.querySelector(".reset-grid");
+resetGridBtn.addEventListener("click", () => {
+  const currentGridItems = document.querySelectorAll(".grid");
+  currentGridItems.forEach((gridItem) => {
+    gridItem.style.cssText = "background-color: white";
+  });
+});
+function eraseColor(e) {
+  e.target.style.backgroundColor = "white";
+}
+const eraseButton = document.querySelector(".erase");
+eraseButton.addEventListener("click", (e) => {
+  const currentGridItems = document.querySelectorAll(".grid");
+  if (e.target.textContent === "Erase") {
+    gridContainer.removeEventListener("click", toggleDrawing);
+    e.target.classList.add("selected");
+    currentGridItems.forEach((gridItem) => {
+      if (drawing) {
+        gridItem.removeEventListener("mouseover", setColor);
+      }
+      gridItem.addEventListener("mouseover", eraseColor);
+    });
+    e.target.textContent = "Done";
+  } else {
+    gridItems.forEach((gridItem) => {
+      gridItem.removeEventListener("mouseover", eraseColor);
+    });
+    gridContainer.addEventListener("click", toggleDrawing);
+    e.target.classList.remove("selected");
+    e.target.textContent = "Erase";
+  }
 });
