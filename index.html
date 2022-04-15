@@ -8,36 +8,41 @@
     <title>Document</title>
   </head>
   <body>
-    <div class="grid-container"></div>
-    <div id="slide">
-      <label for="range"
-        >Change Squares Per Side: <span class="slider-value"></span
-      ></label>
+    <div class="full-grid">
+      <div class="grid-container"></div>
+      <div class="all-options">
+        <div class="flex-item" id="slide">
+          <label for="range"
+            >Change Squares Per Side: <span class="slider-value"></span
+          ></label>
 
-      <input
-        type="range"
-        min="16"
-        max="100"
-        value="50"
-        class="slider"
-        id="range"
-      />
-    </div>
-    <div>
-      <label for="colors">Select Your Color:</label>
-      <select id="colors" class="colors">
-        <option value="random">Random</option>
-        <option value="purple">Purple</option>
-        <option value="red">Red</option>
-        <option value="black">Black</option>
-        <option value="yellow">Yellow</option>
-        <option value="blue">Blue</option>
-      </select>
-    </div>
+          <input
+            type="range"
+            min="16"
+            max="100"
+            value="50"
+            class="slider"
+            id="range"
+          />
+        </div>
 
-    <button class="reset-grid">Reset Grid</button> <br />
-    <button class="erase">Erase</button>
-    <h3>Click the grid to toggle drawing ;)</h3>
+        <div class="flex-item">
+          <label for="colors">Select Your Color:</label>
+          <select id="colors" class="colors">
+            <option value="random">Random</option>
+            <option value="purple">Purple</option>
+            <option value="red">Red</option>
+            <option value="black">Black</option>
+            <option value="yellow">Yellow</option>
+            <option value="blue">Blue</option>
+          </select>
+        </div>
+
+        <button class="flex-item reset-grid">Reset Grid</button> <br />
+        <button class="flex-item erase">Erase</button>
+        <h3 class="flex-item">Click the grid to toggle drawing ;)</h3>
+      </div>
+    </div>
     <script src="./index.js"></script>
   </body>
 </html>

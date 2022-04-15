@@ -1,14 +1,32 @@
+body {
+  background-color: #38cccc;
+}
 .grid-container {
+  border: 10px #ddd solid;
   display: grid;
   grid-template-columns: repeat(16, 1fr);
   column-gap: 0;
   row-gap: 0;
-  width: 800px;
-  height: 800px;
-  background-color: rgb(227, 168, 168);
+  width: 700px;
+  height: 700px;
   margin: auto;
+  grid-area: gcon;
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
+    rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
+    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
 }
 
+.all-options {
+  grid-area: opt;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+}
+.flex-item {
+  flex-grow: 0;
+  align-self: flex-start;
+}
 .grid {
   background-color: white;
   border: black solid 2px;
@@ -21,4 +39,13 @@
 
 .selected {
   background-color: #89cff0;
+}
+
+.full-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas: "opt gcon";
+  grid-gap: 20px;
+  width: 900px;
+  margin: 100px auto;
 }
